@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>GPT-OSS Chat</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">🤖 GPT-OSS - 자비스 모드</div>
+        <div class="chat-box" id="chat-box">
+            <!-- GPT와 사용자 대화 내용이 여기에 표시됩니다 -->
+        </div>
+        <form id="chat-form">
+            <input type="text" id="user-input" placeholder="질문을 입력하세요..." autocomplete="off" />
+            <button type="submit">보내기</button>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('chat-form');
+        const input = document.getElementById('user-input');
+        const chatBox = document.getElementById('chat-box');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const message = input.value.trim();
+            if (!message) return;
+
+            const userMessage = `<div class="message user">🙋 ${message}</div>`;
+            chatBox.innerHTML += userMessage;
+
+            // GPT 응답은 나중에 Flask 연동 시 연결
+            const botMessage = `<div class="message bot">🤖 [GPT의 응답 자리입니다]</div>`;
+            chatBox.innerHTML += botMessage;
+
+            input.value = '';
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+    </script>
+</body>
+</html>
